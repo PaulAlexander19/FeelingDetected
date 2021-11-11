@@ -1,20 +1,25 @@
 import cv2
 
+cap = cv2.VideoCapture(1)       ## 0 for default camera
+
 faceClassif = cv2.CascadeClassifier('./Models/haarcascade_frontalface_default.xml')     ## Load the classifier
-img = cv2.imread('./data/faces/amigos.jpg')     ## Load the image
-gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)   ## Convert to grayscale
 
 
-faces = faceClassif.detectMultiScale(gray,
-                                    scaleFactor=1.1,    ## Scale factor
-                                    minNeighbors=5,     ## Minimum neighbors
-                                    minSize=(30, 30),   ## Minimum size
-                                    maxSize=(80, 80))   ## Maximum size
+while True:     ### While loop to keep the camera on
+    ret, frame = cap.read()     ## Read the frame    
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)   ## Convert to grayscale
 
 
-for (x, y, w, h) in faces:
-    cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)      ## Draw rectangle around the face
+    faces = faceClassif.detectMultiScale(gray, 1.3, 5)     ## Detect faces
 
-cv2.imshow('img', img)      ## Show the image
+
+    for (x, y, w, h) in faces:   ## For each face
+        cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)      ## Draw rectangle around the face
+
+    cv2.imshow('img', frame)      ## Show the image
+    
+    if cv2.waitKey(1) & 0xFF == ord('q'):     ## Wait for 'q' to quit
+        break
+    
 cv2.waitKey(5000)           ## Wait for 5 seconds
 cv2.destroyAllWindows()     ## Close all windows

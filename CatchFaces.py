@@ -1,6 +1,6 @@
 import cv2
 
-faceClassif = cv2.CascadeClassifier('/home/pool/.local/lib/python3.8/site-packages/cv2/data/haarcascade_frontalface_default.xml')
+faceClassif = cv2.CascadeClassifier('./Models/haarcascade_frontalface_default.xml')     ## Load the classifier
 img = cv2.imread('./data/faces/amigos.jpg')     ## Load the image
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)   ## Convert to grayscale
 

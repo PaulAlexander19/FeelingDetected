@@ -23,7 +23,7 @@ while True:     ### While loop to keep the camera on
     auxFrame = frame.copy()
     
 
-    faces = faceClassif.detectMultiScale(gray, 1.1, 5)     ## Detect faces
+    faces = faceClassif.detectMultiScale(gray, 1.18, 5)     ## Detect faces
 
    
     

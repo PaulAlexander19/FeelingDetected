@@ -1,10 +1,14 @@
 import cv2
 import os
 
+
+personName = "Pool"
+dataPath = "./data/"
+personPath = dataPath + personName
 ## Crear el directorio
-if not os.path.exists("faces_found"):
+if not os.path.exists(personPath):
     print("Carpeta creada")
-    os.makedirs("faces_found")
+    os.makedirs(personPath)
     
 cap = cv2.VideoCapture(1)       ## 0 for default camera
 
@@ -21,9 +25,7 @@ while True:     ### While loop to keep the camera on
 
     faces = faceClassif.detectMultiScale(gray, 1.1, 5)     ## Detect faces
 
-    k = cv2.waitKey(1)
-    if k == 27:
-        break
+   
     
     for (x, y, w, h) in faces:   ## For each face
         cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)      ## Draw rectangle around the face
@@ -31,10 +33,13 @@ while True:     ### While loop to keep the camera on
         rostro = cv2.resize(rostro, (150, 150), interpolation=cv2.INTER_CUBIC)
         
         # if k == ord('s'):
-        cv2.imwrite("faces_found/rostro_{}.jpg".format(count), rostro)
+        cv2.imwrite( personPath+ "/rostro_{}.jpg".format(count), rostro)
         cv2.imshow("rostro", rostro)
         count += 1
         
+    k = cv2.waitKey(1)
+    if k == 27 or count >= 300:
+        break
         
     cv2.imshow('img', frame)      ## Show the image
     

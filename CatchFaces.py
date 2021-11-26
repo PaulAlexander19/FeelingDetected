@@ -2,7 +2,7 @@ import cv2
 import os
 
 
-personName = "Pool"
+personName = "Briyit"
 dataPath = "./data/"
 personPath = dataPath + personName
 ## Crear el directorio
@@ -10,7 +10,7 @@ if not os.path.exists(personPath):
     print("Carpeta creada")
     os.makedirs(personPath)
     
-cap = cv2.VideoCapture(1)       ## 0 for default camera
+cap = cv2.VideoCapture(0)       ## 0 for default camera
 
 faceClassif = cv2.CascadeClassifier('./Models/haarcascade_frontalface_default.xml')     ## Load the classifier
 

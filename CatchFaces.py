@@ -10,7 +10,7 @@ while True:     ### While loop to keep the camera on
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)   ## Convert to grayscale
 
 
-    faces = faceClassif.detectMultiScale(gray, 1.3, 5)     ## Detect faces
+    faces = faceClassif.detectMultiScale(gray, 1.1, 5)     ## Detect faces
 
 
     for (x, y, w, h) in faces:   ## For each face

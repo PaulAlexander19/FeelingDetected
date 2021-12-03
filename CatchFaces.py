@@ -21,7 +21,10 @@ faceClassif = cv2.CascadeClassifier('./Models/haarcascade_frontalface_default.xm
 
 
 count = 0
+countName = len(os.listdir(emotionPath))
+print(count)
 maxImageCount = 300
+
 while True:     ### While loop to keep the camera on
     ret, frame = cap.read()     ## Read the frame    
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)   ## Convert to grayscale
@@ -37,9 +40,10 @@ while True:     ### While loop to keep the camera on
         rostro = cv2.resize(rostro, (150, 150), interpolation=cv2.INTER_CUBIC)
         
         # if k == ord('s'):
-        cv2.imwrite( emotionPath+ "/rostro_{}.jpg".format(count), rostro)
+        cv2.imwrite( emotionPath+ "/rostro_{}.jpg".format(countName), rostro)
         cv2.imshow("rostro", rostro)
         count += 1
+        countName += 1
         
     k = cv2.waitKey(1)
     if k == 27 or count >= maxImageCount:

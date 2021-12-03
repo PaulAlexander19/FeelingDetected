@@ -2,7 +2,12 @@ import cv2
 import os
 import imutils
 
-emotionName = "Happy"   # Nombre de la emocion
+#emotionName = "Happy"   # Nombre de la emocion 
+#emotionName = "Angry"   # Nombre de la emocion
+#emotionName = "Sad"     # Nombre de la emocion
+#emotionName = "Surprised"   # Nombre de la emocion
+emotionName = "Serius"   # Nombre de la emocion
+
 dataPath = "./data"     # Ruta de la carpeta donde se guardaran las imagenes
 emotionPath = dataPath + "/" + emotionName
 ## Crear el directorio
@@ -16,7 +21,7 @@ faceClassif = cv2.CascadeClassifier('./Models/haarcascade_frontalface_default.xm
 
 
 count = 0
-maxImageCount = 200
+maxImageCount = 300
 while True:     ### While loop to keep the camera on
     ret, frame = cap.read()     ## Read the frame    
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)   ## Convert to grayscale

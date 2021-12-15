@@ -7,7 +7,7 @@ method = 'LBPH'
 locationModel = "./modelEmotion"
 emotion_recognizer = cv2.face.LBPHFaceRecognizer_create()
 
-emotion_recognizer.read(locationModel +'/modelo'+method+'.xml')
+emotion_recognizer.read(locationModel +'/fer2013modelo'+method+'.xml')
 # --------------------------------------------------------------------------------
 
 dataPath = './data.new' #Cambia a la ruta donde hayas almacenado Data

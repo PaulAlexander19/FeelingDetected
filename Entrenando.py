@@ -15,9 +15,9 @@ def obtenerModelo(facesData,labels, location):
     print("Tiempo de entrenamiento ( "+method+" ): ", tiempoEntrenamiento)
 
 	# Almacenando el modelo obtenido
-    emotion_recognizer.write(location + "/fer2013modelo"+method+".xml")
+    emotion_recognizer.write(location + "/modelo"+method+".xml")
 
-dataPath = './data.fer2013' 
+dataPath = './data.new' 
 emotionsList = os.listdir(dataPath)
 print('Lista de emociones: ', emotionsList)
 

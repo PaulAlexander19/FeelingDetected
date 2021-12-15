@@ -14,7 +14,7 @@ dataPath = './data' #Cambia a la ruta donde hayas almacenado Data
 imagePaths = os.listdir(dataPath)
 print('emotionPaths=',imagePaths)
 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(1)
 
 faceClassif = cv2.CascadeClassifier('./Models/haarcascade_frontalface_default.xml') 
 

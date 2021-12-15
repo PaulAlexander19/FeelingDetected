@@ -27,11 +27,12 @@ for nameDir in emotionsList:
         # image2 = cv2.imread("./data/Angry/rostro_0.jpg")
         # print(imagePath+'/'+imageName)
         # print(dir(image))
-        # cv2.imshow('test',image)
-        # cv2.imshow('test',image2)
+        cv2.imshow('test',image)
+        # # cv2.imshow('test',image2)
+        
         # k = cv2.waitKey(0)
         # if k == ord('s'):
-        #    continue
+        #    break
 
         # -----------
         imageAux = image.copy()
@@ -55,13 +56,13 @@ for nameDir in emotionsList:
         # else:
         for (x, y, w, h) in faces:
             rostro = imageAux[y:y+h, x:x+w]
-            # print("dentro")
+            print("dentro")
             rostro = cv2.resize(rostro, (150, 150),
                                 interpolation=cv2.INTER_CUBIC)
             # cv2.imshow('test',rostro)
             # k = cv2.waitKey(0)
             # if k == ord('s'):
-            #    pass
+            #    break
 
             # cv2.imshow('rostro',rostro)
             # cv2.waitKey(0)

@@ -4,13 +4,13 @@ import numpy as np
 
 # ----------- Métodos usados para el entrenamiento y lectura del modelo ----------
 method = 'LBPH'
-
+locationModel = "./modelEmotion"
 emotion_recognizer = cv2.face.LBPHFaceRecognizer_create()
 
-emotion_recognizer.read('modelo'+method+'.xml')
+emotion_recognizer.read(locationModel +'/modelo'+method+'.xml')
 # --------------------------------------------------------------------------------
 
-dataPath = './data' #Cambia a la ruta donde hayas almacenado Data
+dataPath = './data.new' #Cambia a la ruta donde hayas almacenado Data
 imagePaths = os.listdir(dataPath)
 print('emotionPaths=',imagePaths)
 
@@ -42,7 +42,7 @@ while True:
 	  
 		# LBPHFace
 		if method == 'LBPH':
-			if result[1] < 65:
+			if result[1] < 90:
 				cv2.putText(frame,'{}'.format(imagePaths[result[0]]),(x,y-25),2,1.1,(0,255,0),1,cv2.LINE_AA)
 				cv2.rectangle(frame, (x,y),(x+w,y+h),(0,255,0),2)
 				# image = emotionImage(imagePaths[result[0]])

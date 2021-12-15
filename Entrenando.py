@@ -3,7 +3,7 @@ import os
 import numpy as np
 import time
 
-def obtenerModelo(facesData,labels):
+def obtenerModelo(facesData,labels, location):
     method = "LBPH"
     emotion_recognizer = cv2.face.LBPHFaceRecognizer_create() ## ceamos el modelo
 
@@ -15,9 +15,9 @@ def obtenerModelo(facesData,labels):
     print("Tiempo de entrenamiento ( "+method+" ): ", tiempoEntrenamiento)
 
 	# Almacenando el modelo obtenido
-    emotion_recognizer.write("modelo"+method+".xml")
+    emotion_recognizer.write(location + "/modelo"+method+".xml")
 
-dataPath = './data' 
+dataPath = './data.new' 
 emotionsList = os.listdir(dataPath)
 print('Lista de emociones: ', emotionsList)
 
@@ -38,4 +38,9 @@ for nameDir in emotionsList:
 	label = label + 1
 
 #obtenerModelo('EigenFaces',facesData,labels)
-obtenerModelo(facesData,labels)
+location = "modelEmotion"
+if not os.path.exists(location):
+    print('Carpeta creada: ' + location)
+    os.makedirs(location)
+    
+obtenerModelo(facesData,labels, location)

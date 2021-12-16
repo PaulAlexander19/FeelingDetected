@@ -3,9 +3,20 @@ import os
 import numpy as np
 import time
 
-def obtenerModelo(facesData,labels, location):
-    method = "LBPH"
-    emotion_recognizer = cv2.face.LBPHFaceRecognizer_create() ## ceamos el modelo
+def obtenerModelo(facesData,labels, location, method="LBPH" ):
+    # emotion_recognizer = None
+    if(method == "EigenFaces"): 
+        emotion_recognizer = cv2.face.EigenFaceRecognizer_create() ## ceamos el modelo
+    
+    elif(method == "FisherFaces"): 
+        emotion_recognizer = cv2.face.FisherFaceRecognizer_create() ## ceamos el modelo
+    
+    elif(method == "LBPH"): 
+        emotion_recognizer = cv2.face.LBPHFaceRecognizer_create() ## ceamos el modelo
+    else:
+        print("No encontrada la emción, trabajando con LBPH") 
+        emotion_recognizer = cv2.face.LBPHFaceRecognizer_create() ## ceamos el modelo
+    
 
 	# Entrenando el reconocedor de emociones
     print("Entrenando ( "+method+" )...")
@@ -30,7 +41,7 @@ for nameDir in emotionsList:
 
 	for fileName in os.listdir(emotionsPath):
 		#print('Rostros: ', nameDir + '/' + fileName)
-		labels.append(label)
+		labels.append(label) ## Wl codigo de la emocion
 		facesData.append(cv2.imread(emotionsPath+'/'+fileName,0))
 		#image = cv2.imread(emotionsPath+'/'+fileName,0)
 		#cv2.imshow('image',image)
@@ -43,4 +54,6 @@ if not os.path.exists(location):
     print('Carpeta creada: ' + location)
     os.makedirs(location)
     
-obtenerModelo(facesData,labels, location)
+obtenerModelo(facesData,labels, location, method="LBPH")
+# obtenerModelo(facesData,labels, location, method="FisherFaces")
+# obtenerModelo(facesData,labels, location, method="EigenFaces")

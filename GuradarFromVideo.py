@@ -6,7 +6,7 @@ location = "../DataVideos"
 # 	print('Carpeta creada: Rostros encontrados')
 # 	os.makedirs('Rostros encontrados2')
 
-emotionLocation = "./data.new"
+emotionLocation = "./data"
 emotion = "Serio"
 cap = cv2.VideoCapture(location+"/seria.mp4")
 

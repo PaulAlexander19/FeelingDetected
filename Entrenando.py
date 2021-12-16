@@ -28,7 +28,7 @@ def obtenerModelo(facesData,labels, location, method="LBPH" ):
 	# Almacenando el modelo obtenido
     emotion_recognizer.write(location + "/modelo"+method+".xml")
 
-dataPath = './data.new' 
+dataPath = './data' 
 emotionsList = os.listdir(dataPath)
 print('Lista de emociones: ', emotionsList)
 

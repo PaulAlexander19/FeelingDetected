@@ -10,7 +10,7 @@ emotion_recognizer = cv2.face.LBPHFaceRecognizer_create()
 emotion_recognizer.read(locationModel +'/modelo'+method+'.xml')
 # --------------------------------------------------------------------------------
 
-dataPath = './data.new' #Cambia a la ruta donde hayas almacenado Data
+dataPath = './data' #Cambia a la ruta donde hayas almacenado Data
 imagePaths = os.listdir(dataPath)
 print('emotionPaths=',imagePaths)
 

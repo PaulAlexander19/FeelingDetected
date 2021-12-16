@@ -2,7 +2,7 @@ import cv2
 import os
 
 dataFinalPath = "data.procesado"
-dataPath = "./data.new"
+dataPath = "./data"
 emotionsList = os.listdir(dataPath)
 
 # Cambia a la ruta donde hayas almacenado la carpeta con las imágenes

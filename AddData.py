@@ -117,13 +117,14 @@ def visualizar():
         
 
 def finalizar_limpiar():
-    
+    global cap
     lblVideo.image = ""
     lblInfoVideoPath.configure(text="")
     rad1.configure(state="active")
     rad2.configure(state="active")
     selected.set(0)
-    cap.release()
+    if(cap != None):
+        cap.release()
  
 def goFrameApp():
     global root

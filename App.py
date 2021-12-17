@@ -5,7 +5,7 @@ from PIL import ImageTk
 from DetectarEmociones import detectionEmotion
 import cv2
 import imutils
-import Gui
+import InterfaceEmociones
 import AddData
     
 def addFaces():
@@ -18,7 +18,7 @@ def addFaces():
 def useDetector():
     global root
     root.destroy()
-    Gui.mainGui()
+    InterfaceEmociones.mainGui()
     pass
     
 def finalizar():

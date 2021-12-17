@@ -29,7 +29,10 @@ def video_de_entrada():
         rad1.configure(state="disabled")
         rad2.configure(state="disabled")
         lblInfoVideoPath.configure(text="")
-        cap = cv2.VideoCapture(1)
+        try:
+            cap = cv2.VideoCapture(0)
+        except:
+            cap = cv2.VideoCapture(1)
         visualizar()
         
 def visualizar():

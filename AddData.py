@@ -7,7 +7,8 @@ import cv2
 import imutils
 import App
 from SaveFaceFromVideo import safeFaceForVideo
-from SaveFaceFromWebCam import safeFaceForVideoWebcam
+from SaveFaceFromWebCam import safeFaceForVideoWebcam, saveFace
+
 
 ## Reconoce la entrada del video
 def video_de_entrada():
@@ -49,7 +50,10 @@ def video_de_entrada():
         visualizar()
        
 def accion(event):
+    global frame
     print("Hola")
+    saveFace(frame, "Angry")
+    
         
 def visualizar():
     global webCam
@@ -59,6 +63,7 @@ def visualizar():
     global rad1, rad2
     global selected
     global btnEnd
+    global frame
     ## Emotion
     emotion = "Angry"
     
@@ -115,6 +120,7 @@ rad1, rad2 = None, None
 selected = None
 btnEnd = None
 root = None
+frame = None
 
 def mainAddData():
     global cap

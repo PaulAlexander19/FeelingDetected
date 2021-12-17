@@ -47,6 +47,9 @@ def video_de_entrada():
             cap = cv2.VideoCapture(0)
         webCam = True
         visualizar()
+       
+def accion(event):
+    print("Hola")
         
 def visualizar():
     global webCam
@@ -63,7 +66,10 @@ def visualizar():
     if ret == True:
         frame = imutils.resize(frame, width=600)
         if(webCam):
-            frame = safeFaceForVideoWebcam(frame, emotion=emotion)
+            frame, rostro = safeFaceForVideoWebcam(frame, emotion=emotion)
+            # cv2.imshow("rostro", rostro)
+            root.bind('<Return>', accion)
+
         else:
             frame = safeFaceForVideo(frame, emotion=emotion)
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)

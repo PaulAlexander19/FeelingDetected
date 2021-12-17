@@ -9,6 +9,7 @@ import App
 
 ## Reconoce la entrada del video
 def video_de_entrada():
+    global webCam
     global cap
     global lblVideo
     global lblInfoVideoPath
@@ -29,6 +30,7 @@ def video_de_entrada():
             pathInputVideo = "..." + path_video[-20:]
             lblInfoVideoPath.configure(text=pathInputVideo)
             cap = cv2.VideoCapture(path_video)
+            webCam = False
             visualizar()
     ## Activa la camara web
     if selected.get() == 2:
@@ -41,9 +43,11 @@ def video_de_entrada():
             cap = cv2.VideoCapture(1)
         except:
             cap = cv2.VideoCapture(0)
+        webCam = True
         visualizar()
         
 def visualizar():
+    global webCam
     global cap
     global lblVideo
     global lblInfoVideoPath
@@ -56,6 +60,10 @@ def visualizar():
         frame = detectionEmotion(frame)
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         im = Image.fromarray(frame)
+        if (not(webCam)):
+            ancho, alto = im.size
+            withRedi = 500*ancho//alto
+            im = im.resize((withRedi,500), Image.ANTIALIAS)
         img = ImageTk.PhotoImage(image=im)
 
         lblVideo.configure(image=img)
@@ -85,7 +93,7 @@ def goFrameApp():
     root.destroy()
     App.mainApp()
     
-   
+webCam = False
 cap = None
 lblVideo = None
 lblInfoVideoPath = None

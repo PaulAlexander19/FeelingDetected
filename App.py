@@ -6,10 +6,12 @@ from DetectarEmociones import detectionEmotion
 import cv2
 import imutils
 import Gui
+import AddData
     
 def addFaces():
     global root
-    # root.withdraw()
+    root.destroy()
+    AddData.mainAddData()
     print("addFaces")
     pass
 

@@ -1,4 +1,5 @@
 from tkinter import *
+import tkinter
 from tkinter.ttk import Combobox
 from tkinter import filedialog
 from PIL import Image
@@ -9,6 +10,7 @@ import imutils
 import App
 from SaveFaceFromVideo import safeFaceForVideo
 from SaveFaceFromWebCam import safeFaceForVideoWebcam, saveFace, getListEmotion
+import Entrenando
 
 
 ## Reconoce la entrada del video
@@ -191,7 +193,11 @@ def entrenar():
     global root
     global btnEntrenar
     print("Entrenando el modelo")
-    btnEntrenar.configure(state="disabled")
+    resul = Entrenando.mainEntrenar()
+    
+    if(resul):
+        btnEntrenar.configure(state="disabled")
+        tkinter.MeessageBox.showinfo("Entrenamiento", "Entrenamiento finalizado")        
 
 def identificarEmotion(event):
     global bxbEmotion

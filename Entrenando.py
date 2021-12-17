@@ -5,6 +5,7 @@ import time
 
 def obtenerModelo(facesData,labels, location, method="LBPH" ):
     # emotion_recognizer = None
+    resol = False
     if(method == "EigenFaces"): 
         emotion_recognizer = cv2.face.EigenFaceRecognizer_create() ## ceamos el modelo
     
@@ -22,38 +23,47 @@ def obtenerModelo(facesData,labels, location, method="LBPH" ):
     print("Entrenando ( "+method+" )...")
     inicio = time.time()
     emotion_recognizer.train(facesData, np.array(labels))
+    resol = True
     tiempoEntrenamiento = time.time()-inicio
     print("Tiempo de entrenamiento ( "+method+" ): ", tiempoEntrenamiento)
 
 	# Almacenando el modelo obtenido
     emotion_recognizer.write(location + "/modelo"+method+".xml")
 
-dataPath = './data' 
-emotionsList = os.listdir(dataPath)
-print('Lista de emociones: ', emotionsList)
+    return resol
 
-labels = []
-facesData = []
-label = 0
+def mainEntrenar():
+    result = False
+    dataPath = './data' 
+    emotionsList = os.listdir(dataPath)
+    print('Lista de emociones: ', emotionsList)
 
-for nameDir in emotionsList:
-	emotionsPath = dataPath + '/' + nameDir
+    labels = []
+    facesData = []
+    label = 0
 
-	for fileName in os.listdir(emotionsPath):
-		#print('Rostros: ', nameDir + '/' + fileName)
-		labels.append(label) ## Wl codigo de la emocion
-		facesData.append(cv2.imread(emotionsPath+'/'+fileName,0))
-		#image = cv2.imread(emotionsPath+'/'+fileName,0)
-		#cv2.imshow('image',image)
-		#cv2.waitKey(10)
-	label = label + 1
+    for nameDir in emotionsList:
+        emotionsPath = dataPath + '/' + nameDir
 
-#obtenerModelo('EigenFaces',facesData,labels)
-location = "modelEmotion"
-if not os.path.exists(location):
-    print('Carpeta creada: ' + location)
-    os.makedirs(location)
-    
-obtenerModelo(facesData,labels, location, method="LBPH")
-# obtenerModelo(facesData,labels, location, method="FisherFaces")
-# obtenerModelo(facesData,labels, location, method="EigenFaces")
+        for fileName in os.listdir(emotionsPath):
+            #print('Rostros: ', nameDir + '/' + fileName)
+            labels.append(label) ## Wl codigo de la emocion
+            facesData.append(cv2.imread(emotionsPath+'/'+fileName,0))
+            #image = cv2.imread(emotionsPath+'/'+fileName,0)
+            #cv2.imshow('image',image)
+            #cv2.waitKey(10)
+        label = label + 1
+
+    #obtenerModelo('EigenFaces',facesData,labels)
+    location = "modelEmotion"
+    if not os.path.exists(location):
+        print('Carpeta creada: ' + location)
+        os.makedirs(location)
+        
+    result = obtenerModelo(facesData,labels, location, method="LBPH")
+    # obtenerModelo(facesData,labels, location, method="FisherFaces")
+    # obtenerModelo(facesData,labels, location, method="EigenFaces")
+
+    return result
+if __name__== "__main__":
+    mainEntrenar()

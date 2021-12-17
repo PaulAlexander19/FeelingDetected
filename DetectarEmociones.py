@@ -2,8 +2,7 @@ import cv2
 import os
 import numpy as np
 
-## Metodo para procesar un frame
-def detectionEmotion(frame, method="LBPH"):
+def getEmotion_recognozer(method="LBPH"):
 	locationModel = "./modelEmotion"
 
 	if(method == "EigenFaces"): 
@@ -17,6 +16,13 @@ def detectionEmotion(frame, method="LBPH"):
 	else:
 		print("No encontrada la emción, trabajando con LBPH") 
 		emotion_recognizer = cv2.face.LBPHFaceRecognizer_create() ## ceamos el modelo
+	
+	emotion_recognizer.read(locationModel +'/modelo'+method+'.xml')
+	
+	return emotion_recognizer
+
+## Metodo para procesar un frame
+def detectionEmotion(frame, emotion_recognizer, method="LBPH" ):
 
 	gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 	auxFrame = gray.copy()

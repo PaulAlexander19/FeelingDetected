@@ -2,12 +2,12 @@ from tkinter import *
 from tkinter import filedialog
 from PIL import Image
 from PIL import ImageTk
-from DetectarEmociones import detectionEmotion
+from DetectarEmociones import detectionEmotion, getEmotion_recognozer
 import cv2
 import imutils
 
 faceClassif = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
-
+emotion_recognozer = getEmotion_recognozer()
 
 def video_de_entrada():
     global cap
@@ -37,7 +37,7 @@ def visualizar():
     ret, frame = cap.read()
     if ret == True:
         frame = imutils.resize(frame, width=400)
-        frame = detectionEmotion(frame)
+        frame = detectionEmotion(frame,emotion_recognozer)
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         im = Image.fromarray(frame)
         img = ImageTk.PhotoImage(image=im)

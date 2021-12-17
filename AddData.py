@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter.ttk import Combobox
 from tkinter import filedialog
 from PIL import Image
 from PIL import ImageTk
@@ -7,7 +8,7 @@ import cv2
 import imutils
 import App
 from SaveFaceFromVideo import safeFaceForVideo
-from SaveFaceFromWebCam import safeFaceForVideoWebcam, saveFace
+from SaveFaceFromWebCam import safeFaceForVideoWebcam, saveFace, getListEmotion
 
 
 ## Reconoce la entrada del video
@@ -51,11 +52,13 @@ def video_de_entrada():
        
 def accion(event):
     global frame
+    global emocion
     print("Hola")
-    saveFace(frame, "Angry")
+    saveFace(frame, emocion)
     
         
 def visualizar():
+    global bxbEmotion
     global webCam
     global cap
     global lblVideo
@@ -64,19 +67,20 @@ def visualizar():
     global selected
     global btnEnd
     global frame
+    global emocion
     ## Emotion
-    emotion = "Angry"
+    
     
     ret, frame = cap.read()
     if ret == True:
         frame = imutils.resize(frame, width=600)
         if(webCam):
-            frame, rostro = safeFaceForVideoWebcam(frame, emotion=emotion)
+            frame, rostro = safeFaceForVideoWebcam(frame, emotion=emocion)
             # cv2.imshow("rostro", rostro)
             root.bind('<Return>', accion)
 
         else:
-            frame = safeFaceForVideo(frame, emotion=emotion)
+            frame = safeFaceForVideo(frame, emotion=emocion)
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         im = Image.fromarray(frame)
         if (not(webCam)):
@@ -121,8 +125,11 @@ selected = None
 btnEnd = None
 root = None
 frame = None
+bxbEmotion = None
+emocion = ""
 
 def mainAddData():
+    global bxbEmotion
     global cap
     global lblVideo
     global lblInfoVideoPath
@@ -136,6 +143,18 @@ def mainAddData():
     lblInfo1.grid(column=0, row=0, columnspan=2) ## Ubicar la etiqueta
 
     selected = IntVar()  ## Crear una variable de tipo IntVar
+    # bxbEmotion = Combobox(root, textvariable=selected, values=emotionOption, state="readonly") ## Crear una caja de seleccion
+    # bxbEmotion.current(0)
+    # bxbEmotion.grid(column=1, row=2)
+    
+    emotionOption = getListEmotion()
+    print("emotionOption: "+str(emotionOption))
+
+    bxbEmotion = Combobox(root, textvariable=selected, values=emotionOption, state="readonly") ## Crear una caja de seleccion
+    bxbEmotion.grid(column=1, row=2)
+    bxbEmotion.current(0)
+    bxbEmotion.bind("<<ComboboxSelected>>", identificarEmotion)
+    
     rad1 = Radiobutton(root, text="Elegir video", width=20, value=1, variable=selected, command=video_de_entrada) ## Crear un Radiobutton
     rad2 = Radiobutton(root, text="Video en directo", width=20, value=2, variable=selected, command=video_de_entrada) ## Crear un Radiobutton
     rad1.grid(column=0, row=1)  ## Ubicar el Radiobutton
@@ -156,5 +175,12 @@ def mainAddData():
 
     root.mainloop()
 
+def identificarEmotion(event):
+    global bxbEmotion
+    global emocion
+    
+    print("emotion: "+bxbEmotion.get())
+    emocion = bxbEmotion.get()
+    
 if __name__ == "__main__":
     mainAddData()

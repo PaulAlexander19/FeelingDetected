@@ -1,6 +1,11 @@
 import cv2
 import os
 
+def getListEmotion():
+	emotionLocation = "./data"
+	listEmotion = os.listdir(emotionLocation)
+	return listEmotion
+
 def safeFaceForVideoWebcam(frame, emotion):
 # location = "../DataVideos"
 # if not os.path.exists('Rostros encontradosHap'):

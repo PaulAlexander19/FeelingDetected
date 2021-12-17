@@ -5,6 +5,7 @@ from PIL import ImageTk
 from DetectarEmociones import detectionEmotion
 import cv2
 import imutils
+from App import *
 
 ## Reconoce la entrada del video
 def video_de_entrada():
@@ -78,13 +79,20 @@ def finalizar_limpiar():
     rad2.configure(state="active")
     selected.set(0)
     cap.release()
+ 
+def goFrameApp():
+    global root
+    root.destroy()
+    mainApp()
     
+   
 cap = None
 lblVideo = None
 lblInfoVideoPath = None
 rad1, rad2 = None, None
 selected = None
 btnEnd = None
+root = None
 
 def mainGui():
     global cap
@@ -93,6 +101,7 @@ def mainGui():
     global rad1, rad2
     global selected
     global btnEnd
+    global root
     root = Tk() ## Crear la ventana
     root.title("Deteccion de Rostros") ## Titulo de la ventana
     lblInfo1 = Label(root, text="Detección de Emociones", font="bold") ## Agregar una etiqueta
@@ -113,6 +122,9 @@ def mainGui():
 
     btnEnd = Button(root, text="Finalizar visualización y limpiar", state="disabled", command=finalizar_limpiar)
     btnEnd.grid(column=0, row=4, columnspan=2, pady=10)
+    
+    btnGoApp = Button(root, text="Ir a la pantalla principal", command=goFrameApp)
+    btnGoApp.grid(column=0, row=5, columnspan=2, pady=10)
 
     root.mainloop()
 

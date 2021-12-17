@@ -48,6 +48,7 @@ def safeFaceForVideoWebcam(frame, emotion):
 	return frame, rostro
 
 def saveFace(frame, emotion):
+    funciona = False
     emotionLocation = "./data"
     faceClassif = cv2.CascadeClassifier(cv2.data.haarcascades+'haarcascade_frontalface_default.xml')
     countTotal = 0
@@ -66,5 +67,8 @@ def saveFace(frame, emotion):
         rostro = cv2.resize(rostro,(150,150), interpolation=cv2.INTER_CUBIC)
         cv2.imwrite( emotionLocation+"/"+emotion+"/"+emotion+'_{}.jpg'.format(countTotal),rostro)
         print("Guardando rostro")
+        funciona = True
         count = count +1
         countTotal += 1
+        
+    return funciona

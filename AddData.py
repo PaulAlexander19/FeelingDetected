@@ -53,8 +53,12 @@ def video_de_entrada():
 def accion(event):
     global frame
     global emocion
+    global btnEntrenar
     print("Hola")
-    saveFace(frame, emocion)
+    guardar = saveFace(frame, emocion)
+    
+    if(guardar):
+        btnEntrenar.configure(state="active")
     
         
 def visualizar():
@@ -68,6 +72,7 @@ def visualizar():
     global btnEnd
     global frame
     global emocion
+    global btnEntrenar
     ## Emotion
     
     
@@ -99,6 +104,7 @@ def visualizar():
         rad2.configure(state="active")
         selected.set(0)
         btnEnd.configure(state="disabled")
+        # btnEntrenar.configure(state="desable")
         cap.release()
         
 
@@ -127,6 +133,7 @@ root = None
 frame = None
 bxbEmotion = None
 emocion = ""
+btnEntrenar = None
 
 def mainAddData():
     global bxbEmotion
@@ -137,6 +144,7 @@ def mainAddData():
     global selected
     global btnEnd
     global root
+    global btnEntrenar
     root = Tk() ## Crear la ventana
     root.title("Agregar Datos") ## Titulo de la ventana
     lblInfo1 = Label(root, text="Detección de Emociones", font="bold") ## Agregar una etiqueta
@@ -167,13 +175,23 @@ def mainAddData():
     lblVideo = Label(root) ## Agregar una etiqueta para visualizar el video
     lblVideo.grid(column=0, row=3, columnspan=2) ## Ubicar la etiqueta
 
-    btnEnd = Button(root, text="Finalizar visualización y limpiar", state="disabled", command=finalizar_limpiar)
-    btnEnd.grid(column=0, row=4, columnspan=2, pady=10)
+    btnEnd = Button(root, text="Finalizar visualización \ny limpiar", state="disabled", command=finalizar_limpiar)
+    btnEnd.grid(column=0, row=4, columnspan=2)
+    
+    btnEntrenar = Button(root, text="Entrenar el modelo", state="disabled", command=entrenar)
+    btnEntrenar.grid(column=1, row=5)
+    
     
     btnGoApp = Button(root, text="Ir a la pantalla principal", command=goFrameApp)
-    btnGoApp.grid(column=0, row=5, columnspan=2, pady=10)
+    btnGoApp.grid(column=0, row=5)
 
     root.mainloop()
+
+def entrenar():
+    global root
+    global btnEntrenar
+    print("Entrenando el modelo")
+    btnEntrenar.configure(state="disabled")
 
 def identificarEmotion(event):
     global bxbEmotion

@@ -5,7 +5,7 @@ from PIL import ImageTk
 from DetectarEmociones import detectionEmotion
 import cv2
 import imutils
-from App import *
+import App
 
 ## Reconoce la entrada del video
 def video_de_entrada():
@@ -83,7 +83,7 @@ def finalizar_limpiar():
 def goFrameApp():
     global root
     root.destroy()
-    mainApp()
+    App.mainApp()
     
    
 cap = None

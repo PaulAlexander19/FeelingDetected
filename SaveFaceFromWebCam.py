@@ -43,7 +43,7 @@ def safeFaceForVideoWebcam(frame, emotion):
 			countTotal += 1
 
 	cv2.rectangle(frame,(10,5),(450,25),(255,255,255),-1)
-	cv2.putText(frame,'Presione s, para almacenar los rostros encontrados',(10,20), 2, 0.5,(128,0,255),1,cv2.LINE_AA)	
+	cv2.putText(frame,'Presione "ENTER", para almacenar los rostros encontrados',(10,20), 2, 0.5,(128,0,255),1,cv2.LINE_AA)	
 	
 	return frame, rostro
 

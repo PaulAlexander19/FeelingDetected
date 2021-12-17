@@ -1,5 +1,5 @@
 from tkinter import *
-import tkinter
+from tkinter import messagebox
 from tkinter.ttk import Combobox
 from tkinter import filedialog
 from PIL import Image
@@ -22,8 +22,11 @@ def video_de_entrada():
     global rad1, rad2
     global selected
     global btnEnd
+    global bxbEmotion
+    global emocion
     ## Seleccion un video local
     if selected.get() == 1:
+        bxbEmotion.current(getListEmotion().index(emocion))
         ## IDentificamos el tipo de archivo
         path_video = filedialog.askopenfilename(filetypes = [
             ("all video format", ".mp4"),
@@ -40,6 +43,7 @@ def video_de_entrada():
             visualizar()
     ## Activa la camara web
     if selected.get() == 2:
+        bxbEmotion.current(getListEmotion().index(emocion))
         btnEnd.configure(state="active")
         rad1.configure(state="disabled")
         rad2.configure(state="disabled")
@@ -77,6 +81,7 @@ def visualizar():
     global btnEntrenar
     ## Emotion
     
+    bxbEmotion.current(getListEmotion().index(emocion))
     
     ret, frame = cap.read()
     if ret == True:
@@ -88,6 +93,7 @@ def visualizar():
 
         else:
             frame = safeFaceForVideo(frame, emotion=emocion)
+            
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         im = Image.fromarray(frame)
         if (not(webCam)):
@@ -106,7 +112,7 @@ def visualizar():
         rad2.configure(state="active")
         selected.set(0)
         btnEnd.configure(state="disabled")
-        # btnEntrenar.configure(state="desable")
+        btnEntrenar.configure(state="active")
         cap.release()
         
 
@@ -121,6 +127,7 @@ def finalizar_limpiar():
  
 def goFrameApp():
     global root
+    finalizar_limpiar()
     root.destroy()
     App.mainApp()
     
@@ -197,7 +204,7 @@ def entrenar():
     
     if(resul):
         btnEntrenar.configure(state="disabled")
-        tkinter.MeessageBox.showinfo("Entrenamiento", "Entrenamiento finalizado")        
+        messagebox.showinfo("Entrenamiento", "Entrenamiento finalizado")        
 
 def identificarEmotion(event):
     global bxbEmotion

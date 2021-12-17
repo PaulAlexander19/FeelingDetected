@@ -2,12 +2,12 @@ from tkinter import *
 from tkinter import filedialog
 from PIL import Image
 from PIL import ImageTk
-from DetectarEmociones import detectionEmotion, getEmotion_recognozer
+from DetectarEmociones import detectionEmotion
 import cv2
 import imutils
 
-faceClassif = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
-emotion_recognozer = getEmotion_recognozer()
+# faceClassif = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
+# emotion_recognozer = getEmotion_recognozer()
 
 def video_de_entrada():
     global cap
@@ -36,8 +36,8 @@ def visualizar():
     global cap
     ret, frame = cap.read()
     if ret == True:
-        frame = imutils.resize(frame, width=400)
-        frame = detectionEmotion(frame,emotion_recognozer)
+        frame = imutils.resize(frame, width=600)
+        frame = detectionEmotion(frame)
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         im = Image.fromarray(frame)
         img = ImageTk.PhotoImage(image=im)
@@ -54,12 +54,6 @@ def visualizar():
         btnEnd.configure(state="disabled")
         cap.release()
         
-# def deteccion_facilal(frame):
-#     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-#     faces = faceClassif.detectMultiScale(gray, 1.3, 5)
-#     for (x, y, w, h) in faces:
-#         frame = cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
-#     return frame
 
 def finalizar_limpiar():
     lblVideo.image = ""
@@ -72,8 +66,8 @@ def finalizar_limpiar():
     
 cap = None
 root = Tk()
-
-lblInfo1 = Label(root, text="VIDEO DE ENTRADA", font="bold")
+root.title("Deteccion de Rostros")
+lblInfo1 = Label(root, text="Detección de Emociones", font="bold")
 lblInfo1.grid(column=0, row=0, columnspan=2)
 
 selected = IntVar()

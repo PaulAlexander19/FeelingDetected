@@ -20,7 +20,7 @@ def safeFaceForVideo(frame, emotion):
 		rostro = auxFrame[y:y+h,x:x+w]
 		rostro = cv2.resize(rostro,(150,150), interpolation=cv2.INTER_CUBIC)
 		cv2.imwrite( emotionLocation+"/"+emotion+"/"+emotion+'_{}.jpg'.format(countTotal),rostro)
-		cv2.imshow('rostro',rostro)
+		# cv2.imshow('rostro',rostro)
 		count = count +1
 		countTotal += 1
 	

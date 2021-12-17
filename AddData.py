@@ -7,6 +7,7 @@ import cv2
 import imutils
 import App
 from SaveFaceFromVideo import safeFaceForVideo
+from SaveFaceFromWebCam import safeFaceForVideoWebcam
 
 ## Reconoce la entrada del video
 def video_de_entrada():
@@ -61,7 +62,10 @@ def visualizar():
     ret, frame = cap.read()
     if ret == True:
         frame = imutils.resize(frame, width=600)
-        frame = safeFaceForVideo(frame, emotion=emotion)
+        if(webCam):
+            frame = safeFaceForVideoWebcam(frame, emotion=emotion)
+        else:
+            frame = safeFaceForVideo(frame, emotion=emotion)
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         im = Image.fromarray(frame)
         if (not(webCam)):

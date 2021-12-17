@@ -71,34 +71,38 @@ from Gui import *
     
 def addFaces():
     global root
-    root.withdraw()
-        
+    # root.withdraw()
+    print("addFaces")
     pass
 
 def useDetector():
     global root
-    root.withdraw()
-    userFaceFrame = mainGui()
-    useDetector.mainloop()
-    # print(useDetector)
+    root.destroy()
+    mainGui()
     pass
     
 def finalizar():
+    print("finalizar")
     pass
 
-root = Tk() ## Crear la ventana
-root.title("Bienvenido") ## Titulo de la ventana
-lblInfo1 = Label(root, text="¿Cómo quiere usar?", font="bold") ## Agregar una etiqueta
-lblInfo1.grid(column=0, row=0, columnspan=2) ## Ubicar la etiqueta
+root = None
+def mainApp():
+    global root
+    root = Tk() ## Crear la ventana
+    root.title("Bienvenido") ## Titulo de la ventana
+    lblInfo1 = Label(root, text="¿Cómo quiere usar?", font="bold") ## Agregar una etiqueta
+    lblInfo1.grid(column=0, row=0, columnspan=2) ## Ubicar la etiqueta
 
-btnAddFaces = Button(root, text="Agregar fotos conm tus emociones",  command=addFaces) ## Crear un Radiobutton
-btnUseDetector = Button(root, text="Usar el detector de emociones", command=useDetector) ## Crear un Radiobutton
-btnAddFaces.grid(column=0, row=1)  ## Ubicar el Radiobutton
-btnUseDetector.grid(column=1, row=1) ## Ubicar el Radiobutton
+    btnAddFaces = Button(root, text="Agregar fotos conm tus emociones",  command=addFaces) ## Crear un Radiobutton
+    btnUseDetector = Button(root, text="Usar el detector de emociones", command=useDetector) ## Crear un Radiobutton
+    btnAddFaces.grid(column=0, row=1)  ## Ubicar el Radiobutton
+    btnUseDetector.grid(column=1, row=1) ## Ubicar el Radiobutton
 
 
-btnEnd = Button(root, text="Salir",  command=finalizar)
-btnEnd.grid(column=0, row=4, columnspan=2, pady=10)
+    btnEnd = Button(root, text="Salir",  command=finalizar)
+    btnEnd.grid(column=0, row=4, columnspan=2, pady=10)
 
-root.mainloop()
+    root.mainloop()
 
+if __name__ == "__main__":
+    mainApp()
